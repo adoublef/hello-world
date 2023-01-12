@@ -83,3 +83,24 @@ To watch `watch kubectl get ingress,pods,services,deployment`
 
 [Deploy via Github Actions](https://www.youtube.com/watch?v=6dLHcnlPi_U)
 
+[GIthub actions](https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-google-kubernetes-engine)
+
+## GCloud
+
+Create Artifact Registry
+
+```bash
+gcloud artifacts repositories create $GKE_REGISTRY \
+    --project=$GKE_PROJECT \
+    --repository-format=docker \
+    --location=$GKE_REGION \
+    --description="Docker repository"
+```
+
+Create Cluster
+
+```bash
+ gcloud container clusters create $GKE_CLUSTER \
+	--project=$GKE_PROJECT \
+	--region=$GKE_REGION
+```
