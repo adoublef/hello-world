@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      # imagePullSecrets:
+      # - name: regcred
+      containers:
+        - name: hello-world-app
+          image: europe-west2-docker.pkg.dev/hello-world-374423/hello-world-docker/hello-world-app:v2
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: hello-world
+  ports:
+    - port: 80
+      targetPort: 80
